@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 function MessageBoard() {
-  const [message, setMessage] = useState([
+  const [messages, setMessages] = useState([
     "Hello all ! This is first message.",
   ]);
-  const [messageText, setMessageText] = useState();
+  const [messageText, setMessageText] = useState("");
 
   const handleTextChange = (event) => {
     setMessageText(event.target.value);
@@ -12,15 +12,13 @@ function MessageBoard() {
 
   const addMessage = (event) => {
     event.preventDefault();
-    const newMessage = [...message];
-    newMessage.push(messageText);
-    setMessage(newMessage);
+    if (messageText.trim() === "") return;
+    setMessages([...messages, messageText]);
+    setMessageText("");
   };
 
   const deleteMessage = (messageIndex) => {
-    const newMessage = [...message];
-    newMessage.splice(messageIndex, 1);
-    setMessage(newMessage);
+    setMessages(messages.filter((_, index) => index !== messageIndex));
   };
 
   return (
@@ -40,7 +38,7 @@ function MessageBoard() {
         <button className="submit-message-button">Submit</button>
       </form>
       <div className="board">
-        {message.map((message, index) => (
+        {messages.map((message, index) => (
           <div className="message" key={index}>
             <h1>{message}</h1>
             <button
