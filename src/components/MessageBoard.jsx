@@ -35,7 +35,7 @@ function MessageBoard() {
             onChange={handleTextChange}
           />
         </label>
-        <button className="submit-message-button">Submit</button>
+        <button className="submit-message-button" type="submit">Submit</button>
       </form>
       <div className="board">
         {messages.map((message, index) => (
